@@ -17,7 +17,7 @@ class Home extends React.Component {
             document.getElementById('profileTab').classList.remove('whiteText')
         }
 
-       // this.setState({tweetList:this.getListFromLocalStorage()})
+       this.setState({tweetList:this.getListFromLocalStorage()})
     }
 
     getListFromLocalStorage(){
