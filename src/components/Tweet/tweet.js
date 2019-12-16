@@ -5,31 +5,32 @@ class Tweet extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            name: null,
-            text: null,
-            date: null,
+            userName: props.name,
+            content: props.text,
+            date: props.date,
             loading: true
         }
     }
 
     componentDidMount() {
         this.setState({
-            loading:false,
-            name:'gabe',
-            text:'hey gabe', 
-            date:'3.3.13'
+            loading: false,
         })
     }
 
     render() {
-        const { name, text, date, loading } = this.state;
+        const { userName, content, date, loading } = this.state;
         return (
-            <>
-                {!loading &&
-                <div className="tweet">
-                    </div>}
-                {loading && <div>Loading...</div>}
-            </>
+            <div className="tweet d-flex flex-column justify-content-around p-3">
+                <div className="d-flex justify-content-between greyText">
+                    <div>{userName}</div>
+                    <div>{date}</div>
+                </div>
+                <div className="d-flex flex-wrap">
+                    {content}
+                </div>
+            </div>
+
         );
     }
 }
