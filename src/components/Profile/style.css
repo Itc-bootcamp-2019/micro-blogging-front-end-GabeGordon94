@@ -1,0 +1,17 @@
+#inputUserName{
+    border: 2px solid #CCCCCC;
+    box-sizing: border-box;
+    border-radius: 6px;
+    background-color: transparent;
+    width:50%;
+    height:60px;
+    color:white;
+    font-size: 16px;
+    padding:2%;
+}
+
+.saveButton{
+    justify-content: flex-end;
+    width: 50%;
+    display: flex;
+}

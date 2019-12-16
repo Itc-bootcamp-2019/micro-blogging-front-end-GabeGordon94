@@ -1,11 +1,12 @@
-import React from 'react';
-import './style.css'
+import React, {useState} from 'react';
+import './style.css';
 
 class TextBox extends React.Component {
     constructor(props) {
         super(props);
+        let userName=localStorage.getItem('username');
         this.state = {
-            name: 'gabe',
+            name: userName,
             text: ''
         }
     }
