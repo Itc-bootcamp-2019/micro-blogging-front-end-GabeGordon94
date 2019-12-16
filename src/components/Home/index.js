@@ -52,9 +52,9 @@ class Home extends React.Component {
                 <div className="d-flex flex-column align-items-center w-100 mt-3">
                     {this.state.tweetList.map((tweet, i) => {
                        return (<div key={i} className="w-100 justify-content-center d-flex">
-                            <Tweet name={tweet.userName} date={tweet.date} text={tweet.content} />
+                            <Tweet key={i} name={tweet.userName} date={tweet.date} text={tweet.content} />
                         </div>);
-                    })}
+                    }).reverse()}
                 </div>}
             </div>);
     }
