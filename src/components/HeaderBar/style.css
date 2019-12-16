@@ -1,0 +1,49 @@
+#headerBar{
+    position: absolute;
+    width: 80%;
+    height: 8%;
+    left: 10%;
+    top: 0px;
+    background: #343A40;
+    border-radius: 6px;
+    
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+}
+
+
+#homeTab{
+    text-decoration: none;
+    position: absolute;
+    width: 38px;
+    height: 16px;
+    left: 217.87px;
+    top: 19px;
+    line-height: 16px;
+    display: flex;
+    align-items: center;
+    color: rgba(255, 255, 255, 0.5);
+}
+#profileTab{
+    text-decoration: none;
+    position: absolute;
+    width: 41px;
+    height: 16px;
+    left: 300.87px;
+    top: 19px;
+    line-height: 16px;
+    display: flex;
+    align-items: center;
+    
+    color: rgba(255, 255, 255, 0.5);
+}
+
+#homeTab:hover,#profileTab:hover{
+    text-decoration: underline;
+}
+
+.whiteText{
+    color:white !important;
+}
