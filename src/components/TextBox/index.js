@@ -9,8 +9,9 @@ class TextBox extends React.Component {
 
     render(){
         return(
-            <div>
-                <input type='textbox' />
+            <div className="w-100 justify-content-center d-flex">
+                <textarea type='text' id="newTweetBox" placeholder="What you have in mind..." pattern="/{300/"/>
+                <div id="tweetButton" className="btn">Tweet</div>
             </div>
         );
     }

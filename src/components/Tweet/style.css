@@ -1,0 +1,14 @@
+.tweet{
+    width:50%;
+    height:100px;
+    background: #343A40;
+    border-radius: 6px;
+    margin-left:-5%;
+    margin-bottom:1%;
+    color:white;
+    font-size: 14px;
+}
+
+.greyText{
+    color:#6C757D;
+}

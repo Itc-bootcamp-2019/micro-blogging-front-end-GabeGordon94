@@ -1,4 +1,5 @@
 import React from 'react';
+import '../Home/style.css'
 
 class Profle extends React.Component {
     constructor(props) {
@@ -13,7 +14,11 @@ class Profle extends React.Component {
     }
 
     render() {
-        return (<div>Profile</div>);
+        return (
+            <div className='d-flex flex-column align-items-center w-100 tweetTextBox'>
+                Profile
+            </div>
+        );
     }
 }
 export default Profle;

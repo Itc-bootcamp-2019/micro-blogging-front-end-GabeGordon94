@@ -1,0 +1,23 @@
+#newTweetBox{
+    background-color: transparent;
+    width:50%;
+    height:180px;
+    color:white;
+    padding:1%;
+    resize: none;
+    font-size: 16px;
+    line-height: 19px;
+    border-radius: 6px;
+}
+
+#tweetButton{
+
+    color:white;
+    position: relative;
+    top: 125px;
+    left: -80px;
+    height: 40px;
+    background: #007BFF;
+    border-radius: 4px;
+    font-size: 16px;
+}

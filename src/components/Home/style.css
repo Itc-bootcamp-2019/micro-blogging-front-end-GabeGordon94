@@ -1,0 +1,11 @@
+.tweetList{
+
+    top:30%;
+    width: 600px;
+    height: 600px;
+    border:1px solid black;
+}
+
+.tweetTextBox{
+    margin-top: 5%;
+}
