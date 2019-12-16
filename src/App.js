@@ -11,7 +11,9 @@ function App() {
     <Router>
       <div className="App">
         <header className="App-header">
-          <HeaderBar />
+          <div className='d-flex justify-content-center'>
+            <HeaderBar />
+          </div>
           <Switch>
             <Route exact path="/home">
               <Home />
