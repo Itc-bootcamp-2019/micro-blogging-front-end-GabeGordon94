@@ -19,7 +19,7 @@ class Home extends React.Component {
             document.getElementById('profileTab').classList.remove('whiteText')
         }
         this.getListFromAPI();
-        setInterval(this.getListFromAPI(),30000);
+        setInterval(()=>{this.getListFromAPI()},30000);
         //this.setState({tweetList:this.getListFromLocalStorage()})
     }
 
@@ -35,6 +35,7 @@ class Home extends React.Component {
   */
 
     getListFromAPI() {
+        console.log("got list from api")
         getListOfTweets().then((response) => {
             let sortedList=response.data.tweets.sort((a, b) => (a.date < b.date) ? 1 : -1)
             this.setState({ tweetList: sortedList, loading: false })
@@ -48,7 +49,9 @@ class Home extends React.Component {
         this.setState({ loading: true });
         const obj = { 'content': text, 'userName': name, 'date': date };
         createTweetWithAPI(obj).then((response) => {
-            this.getListFromAPI()
+            const newList=this.state.tweetList;
+            newList.unshift(obj);
+           this.setState({tweetList:newList,loading: false})
             box.value = '';
         }).catch((error) => {
             box.value = error;
@@ -67,7 +70,6 @@ class Home extends React.Component {
     }
 
     render() {
-        //setInterval(this.getListFromAPI(),20000);
         return (
             <div className="d-flex flex-column align-items-center w-100 tweetTextBox">
                 <TextBox onClick={(name, text, date) => { this.submitTweet(name, text, date) }} />
