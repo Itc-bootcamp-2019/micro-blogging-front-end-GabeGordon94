@@ -13,7 +13,7 @@ class HeaderBar extends React.Component {
     render() {
         return (
             <div id="headerBar" className="d-flex">
-                <Link to="/home" id="homeTab">Home</Link>
+                <Link to="/" id="homeTab">Home</Link>
                 <Link to="/profile" id="profileTab">Profile</Link>
             </div>
         );

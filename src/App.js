@@ -15,7 +15,7 @@ function App() {
             <HeaderBar />
           </div>
           <Switch>
-            <Route exact path="/home">
+            <Route exact path="/">
               <Home />
             </Route>
             <Route exact path="/profile">

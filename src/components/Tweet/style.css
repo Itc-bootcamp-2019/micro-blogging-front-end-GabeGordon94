@@ -1,5 +1,5 @@
 .tweet{
-    width:50%;
+    width:50vw;
     height:100px;
     background: #343A40;
     border-radius: 6px;
@@ -7,8 +7,16 @@
     margin-bottom:1%;
     color:white;
     font-size: 14px;
+    overflow: auto;
 }
 
 .greyText{
     color:#6C757D;
+}
+
+
+@media screen and (max-width:500px){
+    .greyText{
+        flex-direction: column;
+    }
 }

@@ -19,54 +19,40 @@ class Home extends React.Component {
             document.getElementById('profileTab').classList.remove('whiteText')
         }
         this.getListFromAPI();
-        setInterval(()=>{this.getListFromAPI()},30000);
-        //this.setState({tweetList:this.getListFromLocalStorage()})
+        setInterval(this.getListFromAPI.bind(this), 20000);
     }
-
-    
-    /*  getListFromLocalStorage(){
-         let list=JSON.parse(localStorage.getItem('ListOfTweets'));
-         console.log("LIST"+list);
-         if(list == null){
-             list=[];
-         }
-         return list;
-     }
-  */
 
     getListFromAPI() {
         console.log("got list from api")
+        this.setState({ loading: true });
         getListOfTweets().then((response) => {
-            let sortedList=response.data.tweets.sort((a, b) => (a.date < b.date) ? 1 : -1)
+            let sortedList = response.data.tweets.sort((a, b) => (a.date < b.date) ? 1 : -1)
             this.setState({ tweetList: sortedList, loading: false })
-            document.getElementById('tweetButton').disabled = 'false';
+            try{
+                if(document.getElementById('newTweetBox').value == "" || document.getElementById('newTweetBox').value == null){
+                    document.getElementById('tweetButton').disabled = true;
+                }else{
+                    document.getElementById('tweetButton').disabled = false;
+                }
+            }catch(err){
+                
+            }
         })
     }
 
     submitTweet(name, text, date) {
-        document.getElementById('tweetButton').disabled = 'true';
+        document.getElementById('tweetButton').disabled = true;
         let box = document.getElementById('newTweetBox')
         this.setState({ loading: true });
         const obj = { 'content': text, 'userName': name, 'date': date };
         createTweetWithAPI(obj).then((response) => {
-            const newList=this.state.tweetList;
+            const newList = this.state.tweetList;
             newList.unshift(obj);
-           this.setState({tweetList:newList,loading: false})
+            this.setState({ tweetList: newList, loading: false })
             box.value = '';
         }).catch((error) => {
             box.value = error;
         })
-
-        //let list=this.state.tweetList;
-        /*  let localStorageList=this.getListFromLocalStorage();
-         debugger
-         localStorageList.push(obj);
-         localStorage.setItem('ListOfTweets',JSON.stringify(localStorageList))
-         /* list.push(obj);
-         this.setState({ tweetList: list }) 
-         this.setState({ tweetList:localStorageList}) */
-
-
     }
 
     render() {
@@ -82,6 +68,7 @@ class Home extends React.Component {
                                 </div>);
                             })}
                         </div>)}
+                {this.state.loading && <div className="lds-ripple mt-5"><div></div><div></div></div>}
             </div>);
     }
 }
