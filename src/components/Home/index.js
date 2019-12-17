@@ -23,13 +23,12 @@ class Home extends React.Component {
     }
 
     getListFromAPI() {
-        console.log("got list from api")
         this.setState({ loading: true });
         getListOfTweets().then((response) => {
             let sortedList = response.data.tweets.sort((a, b) => (a.date < b.date) ? 1 : -1)
             this.setState({ tweetList: sortedList, loading: false })
             try{
-                if(document.getElementById('newTweetBox').value == "" || document.getElementById('newTweetBox').value == null){
+                if(document.getElementById('newTweetBox').value === "" || document.getElementById('newTweetBox').value === null){
                     document.getElementById('tweetButton').disabled = true;
                 }else{
                     document.getElementById('tweetButton').disabled = false;

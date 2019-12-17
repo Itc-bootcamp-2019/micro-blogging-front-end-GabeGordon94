@@ -32,7 +32,7 @@ class Profle extends React.Component {
 
     render() {
         return (
-            <div className='d-flex flex-column container mr-0 tweetTextBox'>
+            <div className='d-flex flex-column container mr-0 tweetTextBox '>
                 <h2>Profile</h2>
                 <h6>User Name</h6>
                 <input type='text' placeholder={localStorage.getItem('username')} id="inputUserName" />

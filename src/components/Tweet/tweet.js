@@ -7,26 +7,19 @@ class Tweet extends React.Component {
         this.state = {
             userName: props.name,
             content: props.text,
-            date: props.date,
-            loading: true
+            date: props.date
         }
-    }
 
-    componentDidMount() {
-        this.setState({
-            loading: false,
-        })
     }
-
     render() {
-        const { userName, content, date, loading } = this.state;
+        const { userName, content, date } = this.state;
         return (
             <div className="tweet d-flex flex-column justify-content-around p-3">
                 <div className="d-flex justify-content-between greyText">
                     <div>{userName}</div>
                     <div>{date}</div>
                 </div>
-                <div className="d-flex flex-wrap">
+                <div className="d-flex flex-wrap contentContainer">
                     {content}
                 </div>
             </div>

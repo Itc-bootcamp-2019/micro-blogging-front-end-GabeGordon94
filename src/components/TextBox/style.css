@@ -25,7 +25,7 @@
 #exceedingLength{
     color: #721C24;
     position: absolute  ;
-    top: 125px;
+    top: 33%;
     height: 40px;
     border-radius: 4px;
     font-size: 16px;
@@ -33,13 +33,19 @@
     border: 1px solid #F5C6CB;
     box-sizing: border-box;
     border-radius: 4px;
-
-    margin-top: 5%;
-    margin-left: -200px;
+    left:26%;
+    display:flex;
+    flex-wrap: wrap;
 }
 
 @media screen and (max-width:950px){
     #tweetButton{
         top:31%;
+    }
+    #exceedingLength{
+        top:31%;
+        height:auto;
+        max-width: 150px;
+        font-size: 12px;
     }
 }

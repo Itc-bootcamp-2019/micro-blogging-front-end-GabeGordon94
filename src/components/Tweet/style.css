@@ -6,9 +6,10 @@
     margin-bottom:1%;
     color:white;
     font-size: 14px;
+}
+.contentContainer{
     overflow: auto;
 }
-
 .greyText{
     color:#6C757D;
 }
