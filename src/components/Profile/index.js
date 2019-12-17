@@ -1,13 +1,14 @@
 import React from 'react';
 import '../Home/style.css';
 import './style.css';
+import {Link} from 'react-router-dom'
 
 
 class Profle extends React.Component {
     constructor(props) {
         super(props);
-        this.state={
-            username:localStorage.getItem('username')
+        this.state = {
+            username: localStorage.getItem('username')
         }
     }
 
@@ -18,11 +19,14 @@ class Profle extends React.Component {
         }
     }
 
-    saveUserName(){
-        let input=document.getElementById('inputUserName');
-        localStorage.setItem('username',input.value);
-        this.setState({username:input});
-        input.value='';
+    saveUserName() {
+        let input = document.getElementById('inputUserName');
+        if (input.value) {    
+            localStorage.setItem('username', input.value);
+            this.setState({ username: input });
+            input.value = '';
+        }
+
     }
 
 
@@ -33,7 +37,8 @@ class Profle extends React.Component {
                 <h6>User Name</h6>
                 <input type='text' placeholder={localStorage.getItem('username')} id="inputUserName" />
                 <div className="mt-2 saveButton" >
-                    <button className="btn btn-primary" onClick={()=>this.saveUserName()}>Save</button>
+                <Link to="/"><button className="btn btn-primary" onClick={() => this.saveUserName()}>Save
+                </button></Link>
                 </div>
             </div>
         );
