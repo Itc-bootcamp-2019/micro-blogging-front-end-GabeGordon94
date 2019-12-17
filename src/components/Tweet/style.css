@@ -3,7 +3,6 @@
     height:100px;
     background: #343A40;
     border-radius: 6px;
-    margin-left:-5%;
     margin-bottom:1%;
     color:white;
     font-size: 14px;
@@ -18,5 +17,6 @@
 @media screen and (max-width:500px){
     .greyText{
         flex-direction: column;
+        font-size: 10px;
     }
 }

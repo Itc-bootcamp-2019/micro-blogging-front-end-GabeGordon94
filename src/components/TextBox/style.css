@@ -8,14 +8,15 @@
     font-size: 16px;
     line-height: 19px;
     border-radius: 6px;
+    position:relative;
 }
 
 #tweetButton{
     color:white;
-    position: relative;
-    top: 125px;
-    left: -80px;
+    position: absolute;
+    top: 33%;
     height: 40px;
+    right:26%;
     background: #007BFF;
     border-radius: 4px;
     font-size: 16px;
@@ -37,3 +38,8 @@
     margin-left: -200px;
 }
 
+@media screen and (max-width:950px){
+    #tweetButton{
+        top:31%;
+    }
+}

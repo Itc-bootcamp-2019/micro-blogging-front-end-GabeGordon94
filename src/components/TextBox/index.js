@@ -42,7 +42,7 @@ class TextBox extends React.Component {
         return (
             <div className="w-100 justify-content-center d-flex">
                 {this.userName &&
-                    <div className="w-100 justify-content-center d-flex">
+                    <div className="w-100 justify-content-center d-flex ">
                         <textarea type='text' id="newTweetBox" placeholder="What you have in mind..." maxLength='140'
                             onChange={(event) => this.validator(event)} />
                         <button id="tweetButton" className="btn" onClick={() =>
