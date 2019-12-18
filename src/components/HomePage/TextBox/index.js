@@ -48,7 +48,7 @@ class TextBox extends React.Component {
                             onChange={(event) => { this.validator(event) }} value={text}/>
                         <div className="d-flex">
                             <button id="tweetButton" className="btn" onClick={() => {
-                                this.props.onClick(name, text, this.getDate(), text);
+                                this.props.onClick(name, text, this.getDate());
                                 this.setState({ btnState: true,text:'' })
                             }}
                                 disabled={btnState}
@@ -61,7 +61,7 @@ class TextBox extends React.Component {
                     <>
                         <Link to="/profile" className="text-danger"> <h1>Set Your Username</h1></Link>
                         <button id="tweetButton" className="btn" onClick={() =>
-                            this.props.onClick(name, text, this.getDate(), text)} disabled
+                            this.props.onClick(name, text, this.getDate())} disabled
                         >Tweet</button>
                     </>
                 }

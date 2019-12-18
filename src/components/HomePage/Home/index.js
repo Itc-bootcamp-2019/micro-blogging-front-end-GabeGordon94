@@ -9,8 +9,7 @@ class Home extends React.Component {
         super(props);
         this.state = {
             tweetList: [],
-            loading: true,
-            doIt: true
+            loading: true
         }
         this.interval = null;
     }
@@ -25,7 +24,6 @@ class Home extends React.Component {
     }
 
     getListFromAPI() {
-        console.log('api')
         this.setState({ loading: true });
         getListOfTweets().then((response) => {
             let sortedList = response.data.tweets.sort((a, b) => (a.date < b.date) ? 1 : -1)
@@ -33,17 +31,18 @@ class Home extends React.Component {
         })
     }
 
-    submitTweet(name, text, date, textboxValue) {
-        console.log(this.state.loading)
+    submitTweet(name, text, date) {
         this.setState({ loading: true });
+        //this.setState({ doIt: false });
         const obj = { 'content': text, 'userName': name, 'date': date };
         createTweetWithAPI(obj).then((response) => {
-            let newList = this.state.tweetList;
-            newList.unshift(obj);
-            this.setState({ tweetList: newList, loading: false })
-            textboxValue = '';
+            /* let newList = this.state.tweetList;
+            newList.unshift(obj); */
+            //console.log('arrived')
+            this.setState({ tweetList: [obj,...this.state.tweetList],loading:false})
+            text = '';
         }).catch((error) => {
-            textboxValue = error;
+            text = error;
         })
     }
 
@@ -51,8 +50,8 @@ class Home extends React.Component {
         debugger
         return (
             <div className="d-flex flex-column align-items-center w-100 tweetTextBox">
-                <TextBox onClick={(name, text, date, textboxValue) => { this.submitTweet(name, text, date, textboxValue) }} />
-                {!this.state.loading &&
+                <TextBox onClick={(name, text, date) => { this.submitTweet(name, text, date) }} />
+                {!this.state.loading && 
                     (this.state.tweetList.length > 0 &&
                         <div className="d-flex flex-column align-items-center w-100 mt-3">
                             {this.state.tweetList.map((tweet, i) => {
