@@ -6,6 +6,7 @@ import Home from './components/HomePage/Home'
 import Profile from './components/ProfilePage/Profile'
 
 
+
 function App() {
   return (
     <Router>

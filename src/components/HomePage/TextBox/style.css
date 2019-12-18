@@ -14,7 +14,7 @@
 #tweetButton{
     color:white;
     position: absolute;
-    top: 33%;
+    top: 205px;;
     height: 40px;
     right:26%;
     background: #007BFF;
@@ -40,7 +40,7 @@
 
 @media screen and (max-width:950px){
     #tweetButton{
-        top:31%;
+        top:192px;
     }
     #exceedingLength{
         top:31%;

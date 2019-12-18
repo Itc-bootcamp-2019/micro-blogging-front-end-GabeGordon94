@@ -19,7 +19,6 @@ class Profle extends React.Component {
 
     saveUserName() {
         let input = this.state.usernameHolder;
-        console.log(input);
         if (input) {    
             localStorage.setItem('username', input);
             this.setState({ username: input });

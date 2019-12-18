@@ -2,7 +2,8 @@ import React from 'react';
 import TextBox from '../TextBox';
 import Tweet from '../Tweet/tweet';
 import './style.css'
-import { getListOfTweets, createTweetWithAPI } from '../../../api'
+import { getListOfTweets, createTweetWithAPI,getLiveUpdates} from '../../../api'
+
 
 class Home extends React.Component {
     constructor(props) {
@@ -21,25 +22,35 @@ class Home extends React.Component {
 
     componentWillUnmount() {
         clearInterval(this.interval);
+        //getLiveUpdates(this.getListFromApi);
     }
+
+
 
     getListFromAPI() {
         this.setState({ loading: true });
+        console.log('first')
         getListOfTweets().then((response) => {
-            let sortedList = response.data.tweets.sort((a, b) => (a.date < b.date) ? 1 : -1)
+            debugger
+            let newList=[];
+            response.forEach(doc => newList.push(doc.data().tweet))
+            let sortedList = newList.sort((a, b) => (a.date < b.date) ? 1 : -1)
             this.setState({ tweetList: sortedList, loading: false })
+            //let sortedList = response.data.tweets.sort((a, b) => (a.date < b.date) ? 1 : -1)
+            //this.setState({ tweetList: sortedList, loading: false })
+        }).catch((err) => {
+            console.log(err);
         })
     }
 
     submitTweet(name, text, date) {
         this.setState({ loading: true });
-        //this.setState({ doIt: false });
         const obj = { 'content': text, 'userName': name, 'date': date };
-        createTweetWithAPI(obj).then((response) => {
+        createTweetWithAPI(obj).then(() => {
             /* let newList = this.state.tweetList;
             newList.unshift(obj); */
             //console.log('arrived')
-            this.setState({ tweetList: [obj,...this.state.tweetList],loading:false})
+            this.setState({ tweetList: [obj, ...this.state.tweetList], loading: false })
             text = '';
         }).catch((error) => {
             text = error;
@@ -47,11 +58,10 @@ class Home extends React.Component {
     }
 
     render() {
-        debugger
         return (
             <div className="d-flex flex-column align-items-center w-100 tweetTextBox">
                 <TextBox onClick={(name, text, date) => { this.submitTweet(name, text, date) }} />
-                {!this.state.loading && 
+                {!this.state.loading &&
                     (this.state.tweetList.length > 0 &&
                         <div className="d-flex flex-column align-items-center w-100 mt-3">
                             {this.state.tweetList.map((tweet, i) => {
