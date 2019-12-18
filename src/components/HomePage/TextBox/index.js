@@ -8,24 +8,25 @@ class TextBox extends React.Component {
         this.userName = localStorage.getItem('username');
         this.state = {
             name: this.userName,
-            text: ''
+            text: '',
+            btnState: true,
+            errorClass:'d-none'
         }
     }
 
     componentDidMount() {
-        document.getElementById('tweetButton').disabled = true
+
     }
 
     validator(event) {
-        document.getElementById('exceedingLength').classList.add('d-none');
+        this.setState({errorClass:'d-none'})
         const input = event.target.value;
         if (input.length === 0) {
-            document.getElementById('tweetButton').disabled = true
+            this.setState({ btnState: true })
         } else if (input.length === 140) {
-            document.getElementById('exceedingLength').classList.remove('d-none');
+            this.setState({errorClass:''})
         } else {
-            document.getElementById('tweetButton').disabled = false;
-            this.setState({ text: input })
+            this.setState({ btnState: false, text: input })
         }
 
     }
@@ -37,27 +38,30 @@ class TextBox extends React.Component {
 
 
     render() {
-        const { name, text } = this.state;
+        const { name, text,errorClass,btnState } = this.state;
 
         return (
             <div className="w-100 justify-content-center d-flex">
                 {this.userName &&
                     <div className="w-100 justify-content-center d-flex ">
                         <textarea type='text' id="newTweetBox" placeholder="What you have in mind..." maxLength='140'
-                            onChange={(event) => this.validator(event)} />
+                            onChange={(event) => { this.validator(event) }} value={text}/>
                         <div className="d-flex">
-                            <button id="tweetButton" className="btn" onClick={() =>
-                                this.props.onClick(name, text, this.getDate())}
+                            <button id="tweetButton" className="btn" onClick={() => {
+                                this.props.onClick(name, text, this.getDate(), text);
+                                this.setState({ btnState: true,text:'' })
+                            }}
+                                disabled={btnState}
                             >Tweet</button>
-                            <span id="exceedingLength" className="d-none">The tweet can't contain more then 140 chars.</span>
+                            <span id="exceedingLength" className={errorClass}>The tweet can't contain more then 140 chars.</span>
                         </div>
                     </div>
                 }
                 {!this.userName &&
                     <>
                         <Link to="/profile" className="text-danger"> <h1>Set Your Username</h1></Link>
-                        <button id="tweetButton" className="btn d-none" onClick={() =>
-                            this.props.onClick(name, text, this.getDate())}
+                        <button id="tweetButton" className="btn" onClick={() =>
+                            this.props.onClick(name, text, this.getDate(), text)} disabled
                         >Tweet</button>
                     </>
                 }

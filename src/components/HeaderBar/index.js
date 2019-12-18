@@ -1,6 +1,6 @@
 import React from 'react';
 import './style.css';
-import {Link} from 'react-router-dom'
+import {NavLink} from 'react-router-dom'
 
 class HeaderBar extends React.Component {
     constructor(props) {
@@ -13,8 +13,8 @@ class HeaderBar extends React.Component {
     render() {
         return (
             <div id="headerBar" className="d-flex">
-                <Link to="/" id="homeTab">Home</Link>
-                <Link to="/profile" id="profileTab">Profile</Link>
+                <NavLink to="/" id="homeTab" activeClassName='selected' exact={true}>Home</NavLink>
+                <NavLink to="/profile" id="profileTab" activeClassName='selected'>Profile</NavLink>
             </div>
         );
     }
