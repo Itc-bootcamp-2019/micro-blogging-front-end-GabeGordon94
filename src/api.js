@@ -25,11 +25,14 @@ const collectionRef = firestore.collection("Tweet")
 export function getListOfTweets(startingPoint) {
     //return axios.get(`https://itc-bootcamp-19-dot-charcha-dev.appspot.com/tweet`);
     return collectionRef
-        .limit(startingPoint)
+        .orderBy('date','desc')
+        .startAt(startingPoint)
+        .limit(20)
         .get()
 }
 
 export function createTweetWithAPI(tweet) {
     //return axios.post(`https://itc-bootcamp-19-dot-charcha-dev.appspot.com/tweet`, { tweet });
-    return collectionRef.add({ tweet });
+    return collectionRef
+    .add( tweet );
 }

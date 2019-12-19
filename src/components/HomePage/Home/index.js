@@ -4,6 +4,7 @@ import Tweet from '../Tweet/tweet';
 import './style.css'
 import { getListOfTweets, createTweetWithAPI } from '../../../api'
 import firebase from 'firebase'
+import InfiniteScroll from 'react-infinite-scroll-component';
 
 class Home extends React.Component {
     constructor(props) {
@@ -29,24 +30,22 @@ class Home extends React.Component {
     getListLive() {
         var firestore = firebase.firestore();
         //.limit(10).get().then()
-        const collectionRef = firestore.collection("Tweet")
+        const collectionRef = firestore.collection("Tweet").orderBy('date','desc')
         collectionRef
             .limit(this.state.visibleNum)
             .onSnapshot((response) => {
-                console.log('snapshot')
                 let newList = [];
                 this.setState({ loading: true })
-                response.forEach(doc => newList.push(doc.data().tweet))
+                response.forEach(doc => newList.push(doc.data()))
                 console.log(newList);
-                let sortedList = newList.sort((a, b) => (a.date < b.date) ? 1 : -1)
-                this.setState({ tweetList: sortedList, loading: false, })
+                //let sortedList = newList.sort((a, b) => (a.date < b.date) ? 1 : -1)
+                this.setState({ tweetList: newList, loading: false, })
             })
     }
 
 
-    getListFromAPI() {
-        let newNum = this.state.visibleNum;
-        newNum += 10;
+    /* getListFromAPI() {
+        
         getListOfTweets(newNum).then((response) => {
             debugger
             let newList = [];
@@ -57,6 +56,19 @@ class Home extends React.Component {
             //this.setState({ tweetList: sortedList, loading: false })
         }).catch((err) => {
             console.log(err);
+        })
+    } */
+
+
+    getNextTen() {
+        getListOfTweets(this.state.visibleNum).then((response) => {
+            let newList = [];
+            response.forEach(doc => newList.push(doc.data()))
+            newList = [...newList, ...this.state.tweetList]
+            //let sortedList = newList.sort((a, b) => (a.date < b.date) ? 1 : -1)
+            let startAt = this.state.visibleNum;
+            startAt += 10;
+            this.setState({ tweetList: newList, loading: false, visibleNum: startAt })
         })
     }
 
@@ -86,9 +98,30 @@ class Home extends React.Component {
                                     <Tweet key={i} name={tweet.userName} date={tweet.date} text={tweet.content} />
                                 </div>);
                             })}
-                            <button onClick={() => { this.getListFromAPI() }}>Next</button>
+                            <button onClick={() => { this.getNextTen() }}>Next</button>
                         </div>)
                 }
+
+                {/*  <InfiniteScroll
+                    dataLength={10}
+                    next={() => { this.getNextTen() }}
+                    hasMore={this.state.hasMore}
+                    loader={<h4>Loading...</h4>}
+                    endMessage={
+                        <p style={{ textAlign: "center" }}>
+                            <b>Yay! You have seen it all</b>
+                        </p>
+                    }
+                >
+                    {listOfLocations.map((loc, i) => {
+                        return (
+                            <div key={i}>
+                                <Location obj={loc} />
+                            </div>
+                        )
+                    })}
+                </InfiniteScroll> */}
+
                 {this.state.loading && <div className="lds-ripple mt-5"><div></div><div></div></div>}
             </div >);
     }
