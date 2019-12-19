@@ -18,7 +18,6 @@
     text-decoration: none;
     width: 38px;
     height: 16px;
-    left: 217.87px;
     top: 19px;
     line-height: 16px;
     display: flex;
@@ -27,10 +26,10 @@
     margin:2%;
 }
 #profileTab{
+    margin:2%;
     text-decoration: none;
     width: 41px;
     height: 16px;
-    left: 300.87px;
     top: 19px;
     line-height: 16px;
     display: flex;
@@ -38,11 +37,24 @@
     
     color: rgba(255, 255, 255, 0.5);
 }
+.signOut{
+    width: auto;
+    height: auto;
+    display:flex;
+    text-align: center;
+}
 
-#homeTab:hover,#profileTab:hover{
+#homeTab:hover,#profileTab:hover,#welcomeTab:hover{
     text-decoration: underline;
 }
 
 .selected{
     color:white !important;
+}
+
+#proPic{
+    height:40px;
+    width:40px;
+    border-radius: 50%;
+    border:1px solid white;
 }

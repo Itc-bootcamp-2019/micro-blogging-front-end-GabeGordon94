@@ -2,40 +2,57 @@ import React from 'react';
 import TextBox from '../TextBox';
 import Tweet from '../Tweet/tweet';
 import './style.css'
-import { getListOfTweets, createTweetWithAPI,getLiveUpdates} from '../../../api'
-
+import { getListOfTweets, createTweetWithAPI } from '../../../api'
+import firebase from 'firebase'
 
 class Home extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             tweetList: [],
-            loading: true
+            loading: true,
+            visibleNum: 10
         }
         this.interval = null;
     }
 
     componentDidMount() {
-        this.getListFromAPI();
-        this.interval = setInterval(this.getListFromAPI.bind(this), 20000);
+        //this.getListFromAPI();
+        //this.interval = setInterval(this.getListFromAPI.bind(this), 20000);
+        this.getListLive();
     }
 
     componentWillUnmount() {
         clearInterval(this.interval);
-        //getLiveUpdates(this.getListFromApi);
+    }
+
+    getListLive() {
+        var firestore = firebase.firestore();
+        //.limit(10).get().then()
+        const collectionRef = firestore.collection("Tweet")
+        collectionRef
+            .limit(this.state.visibleNum)
+            .onSnapshot((response) => {
+                console.log('snapshot')
+                let newList = [];
+                this.setState({ loading: true })
+                response.forEach(doc => newList.push(doc.data().tweet))
+                console.log(newList);
+                let sortedList = newList.sort((a, b) => (a.date < b.date) ? 1 : -1)
+                this.setState({ tweetList: sortedList, loading: false, })
+            })
     }
 
 
-
     getListFromAPI() {
-        this.setState({ loading: true });
-        console.log('first')
-        getListOfTweets().then((response) => {
+        let newNum = this.state.visibleNum;
+        newNum += 10;
+        getListOfTweets(newNum).then((response) => {
             debugger
-            let newList=[];
+            let newList = [];
             response.forEach(doc => newList.push(doc.data().tweet))
             let sortedList = newList.sort((a, b) => (a.date < b.date) ? 1 : -1)
-            this.setState({ tweetList: sortedList, loading: false })
+            this.setState({ tweetList: sortedList, loading: false, visibleNum: newNum })
             //let sortedList = response.data.tweets.sort((a, b) => (a.date < b.date) ? 1 : -1)
             //this.setState({ tweetList: sortedList, loading: false })
         }).catch((err) => {
@@ -59,7 +76,7 @@ class Home extends React.Component {
 
     render() {
         return (
-            <div className="d-flex flex-column align-items-center w-100 tweetTextBox">
+            <div className="d-flex flex-column align-items-center w-100 tweetTextBox" >
                 <TextBox onClick={(name, text, date) => { this.submitTweet(name, text, date) }} />
                 {!this.state.loading &&
                     (this.state.tweetList.length > 0 &&
@@ -69,10 +86,11 @@ class Home extends React.Component {
                                     <Tweet key={i} name={tweet.userName} date={tweet.date} text={tweet.content} />
                                 </div>);
                             })}
+                            <button onClick={() => { this.getListFromAPI() }}>Next</button>
                         </div>)
                 }
                 {this.state.loading && <div className="lds-ripple mt-5"><div></div><div></div></div>}
-            </div>);
+            </div >);
     }
 }
 export default Home;

@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 const firebase = require("firebase");
+var firebaseui = require('firebaseui');
 // Required for side-effects
 require("firebase/firestore");
 
@@ -16,23 +17,19 @@ const firebaseConfig = {
 };
 
 firebase.initializeApp(firebaseConfig);
+var ui = new firebaseui.auth.AuthUI(firebase.auth());
 
 var firestore = firebase.firestore();
 const collectionRef = firestore.collection("Tweet")
 
-export function getListOfTweets() {
+export function getListOfTweets(startingPoint) {
     //return axios.get(`https://itc-bootcamp-19-dot-charcha-dev.appspot.com/tweet`);
-    return collectionRef.get()
+    return collectionRef
+        .limit(startingPoint)
+        .get()
 }
 
 export function createTweetWithAPI(tweet) {
     //return axios.post(`https://itc-bootcamp-19-dot-charcha-dev.appspot.com/tweet`, { tweet });
-   return collectionRef.add({ tweet });
+    return collectionRef.add({ tweet });
 }
-/* 
-export function getLiveUpdates(func) {
-    collectionRef.onSnapshot(() => {
-        func();
-    })
-}
- */

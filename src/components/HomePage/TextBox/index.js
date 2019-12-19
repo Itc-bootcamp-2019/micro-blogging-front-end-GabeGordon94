@@ -1,13 +1,14 @@
 import React from 'react';
 import './style.css';
 import { Link } from 'react-router-dom'
+import firebase from 'firebase'
 
 class TextBox extends React.Component {
     constructor(props) {
         super(props);
-        this.userName = localStorage.getItem('username');
+        //this.userName = localStorage.getItem('username');
         this.state = {
-            name: this.userName,
+            name: firebase.auth().currentUser.displayName,
             text: '',
             btnState: true,
             errorClass:'d-none'
@@ -42,7 +43,7 @@ class TextBox extends React.Component {
 
         return (
             <div className="w-100 justify-content-center d-flex">
-                {this.userName &&
+                {name &&
                     <div className="w-100 justify-content-center d-flex ">
                         <textarea type='text' id="newTweetBox" placeholder="What you have in mind..." maxLength='140'
                             onChange={(event) => { this.validator(event) }} value={text}/>
@@ -57,7 +58,7 @@ class TextBox extends React.Component {
                         </div>
                     </div>
                 }
-                {!this.userName &&
+                {!name &&
                     <>
                         <Link to="/profile" className="text-danger"> <h1>Set Your Username</h1></Link>
                         <button id="tweetButton" className="btn" onClick={() =>
