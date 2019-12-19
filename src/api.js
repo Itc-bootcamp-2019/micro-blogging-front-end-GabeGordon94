@@ -26,8 +26,8 @@ export function getListOfTweets(startingPoint) {
     //return axios.get(`https://itc-bootcamp-19-dot-charcha-dev.appspot.com/tweet`);
     return collectionRef
         .orderBy('date','desc')
-        .startAt(startingPoint)
-        .limit(20)
+        .startAfter(startingPoint)
+        .limit(10)
         .get()
 }
 
