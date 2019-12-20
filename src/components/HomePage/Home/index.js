@@ -74,8 +74,10 @@ class Home extends React.Component {
             }
             newList = [...newList, ...tweetList]
             let sortedList = newList.sort((a, b) => (a.date < b.date) ? 1 : -1)
-            let startAt = visibleNum;
-            startAt += 10;
+            if(sortedList%10 === 0){
+                more=false;
+            }
+            let startAt = sortedList.length
             this.setState({ tweetList: sortedList, loading: false, visibleNum: startAt, hasMore: more })
         })
     }
@@ -113,7 +115,7 @@ class Home extends React.Component {
                 } */}
                 {!this.state.loading && this.state.tweetList.length > 0 &&
                     <InfiniteScroll
-                        dataLength={10}
+                        dataLength={this.state.tweetList.length}
                         next={() => { this.getNextTen() }}
                         hasMore={this.state.hasMore}
                         loader={<h4>Loading...</h4>}
