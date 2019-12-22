@@ -25,7 +25,9 @@ class Home extends React.Component {
     }
 
     componentWillUnmount() {
-        clearInterval(this.interval);
+        //clearInterval(this.interval);
+        var firestore = firebase.firestore();
+        firestore.collection("Tweet").orderBy('date', 'desc').onSnapshot(()=>{});
     }
 
     getListLive() {
@@ -35,7 +37,6 @@ class Home extends React.Component {
         collectionRef
             .limit(this.state.visibleNum)
             .onSnapshot((response) => {
-                console.log('snapshot')
                 let newList = [];
                 this.setState({ loading: true })
                 response.forEach(doc => newList.push(doc.data()))
@@ -57,7 +58,7 @@ class Home extends React.Component {
             //let sortedList = response.data.tweets.sort((a, b) => (a.date < b.date) ? 1 : -1)
             //this.setState({ tweetList: sortedList, loading: false })
         }).catch((err) => {
-            console.log(err);
+            console.lo(err);
         })
     } */
 
@@ -65,7 +66,6 @@ class Home extends React.Component {
     getNextTen() {
         const { tweetList, visibleNum } = this.state
         getListOfTweets(tweetList[visibleNum - 1].date).then((response) => {
-            debugger
             let newList = [];
             response.forEach(doc => newList.push(doc.data()))
             let more = true;
@@ -121,7 +121,7 @@ class Home extends React.Component {
                         loader={<h4>Loading...</h4>}
                         endMessage={
                             <p style={{ textAlign: "center" }}>
-                                <b>Yay! You have seen it all</b>
+                                <b>No more Tweets</b>
                             </p>
                         }
                     >
